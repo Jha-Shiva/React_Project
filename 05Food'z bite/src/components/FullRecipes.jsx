@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import recipesData from '../../recipesData'
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Back from '../assets/arrow-left-line.svg'
 import FullRecipesShimmer from './FullRecipesShimmer';
 
@@ -15,20 +15,36 @@ const FullRecipes = () => {
 
     const [recipeData , setRecipeData] = useState(null)
     const [notFound, setNotFound] = useState(false)
+    const {state} = useLocation()
+
+    function updateRecipeData(data){
+        const food = data.recipes?.[0] || data
+
+        if (!food) {
+            setNotFound(true);
+            return;
+        }
+
+        setRecipeData({
+            name: food.name,
+            image: food.image,
+            prepTimeMin: food.prepTimeMinutes,
+            cookTimeMin: food.cookTimeMinutes,
+            ingredients: food.ingredients,
+            instructions: food.instructions
+        })
+    }
 
     useEffect(()=>{
+        if (state){
+            updateRecipeData(state)
+            return
+        }
+
         fetch(`https://dummyjson.com/recipes/search?q=${recipeName}`)
         .then((res)=> res.json())
         .then((data)=>{
-            const food = data.recipes?.[0]
-            setRecipeData({
-                name: food.name,
-                image: food.image,
-                prepTimeMin: food.prepTimeMinutes,
-                cookTimeMin: food.cookTimeMinutes,
-                ingredients: food.ingredients,
-                instructions: food.instructions
-            })
+            updateRecipeData(data)
             
         }).catch((err)=>{
             setNotFound(true)
@@ -41,6 +57,7 @@ const FullRecipes = () => {
         )
     }
 
+
     return recipeData === null ? (<FullRecipesShimmer/>):(
         <>
         <p className='w-24 ml-16 mt-8  flex gap-1 pr-3 shadow-2xl/40 rounded' draggable onClick={()=> history.back()}>
@@ -48,8 +65,8 @@ const FullRecipes = () => {
             <span className='text-xl text-center'>Back</span>
         </p>
         <div className='flex px-7 justify-evenly m-auto inset-0 py-14' >
-            <div className='max-w-md'>
-            <img className='w-full' src={recipeData.image} alt="" />
+            <div className='max-w-md rounded-lg'>
+            <img className='w-full rounded-lg' src={recipeData.image} alt="" />
             </div>
             <div>
                 <h1 className='text-2xl my-2'><b>{recipeData.name}</b></h1>

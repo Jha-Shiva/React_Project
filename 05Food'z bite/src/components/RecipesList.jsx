@@ -29,7 +29,7 @@ const RecipesList = ({query})=>{
                 )
             })
             .map((recipe)=>{
-                return <Recipes name ={recipe.name} cuisine = {recipe.cuisine} servings = {recipe.servings} image = {recipe.image} key ={recipe.id} calories={recipe.caloriesPerServing} />
+                return <Recipes data ={recipe} name ={recipe.name} cuisine = {recipe.cuisine} servings = {recipe.servings} image = {recipe.image} key ={recipe.id} calories={recipe.caloriesPerServing} />
             })
         }</div>)}
         </>
