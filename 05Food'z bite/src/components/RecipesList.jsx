@@ -1,4 +1,5 @@
 import recipesData from "../../recipesData"
+import CountriesListShimmer from "./CountriesListShimmer";
 import Recipes from "./Recipes";
 import React, {useEffect, useState} from "react";
 
@@ -18,9 +19,10 @@ const RecipesList = ({query})=>{
         })
     },[])
     
+
     return(
         <>
-        <div className="flex flex-wrap m-5">{
+        {!recipesData.length ? (<CountriesListShimmer/>):(<div className="flex flex-wrap m-5">{
             recipesData.filter((recipe)=>{
                 return (
                     recipe.name.toLowerCase().includes(query) || recipe.cuisine.toLowerCase().includes(query)
@@ -29,7 +31,7 @@ const RecipesList = ({query})=>{
             .map((recipe)=>{
                 return <Recipes name ={recipe.name} cuisine = {recipe.cuisine} servings = {recipe.servings} image = {recipe.image} key ={recipe.id} calories={recipe.caloriesPerServing} />
             })
-        }</div>
+        }</div>)}
         </>
     )
 }

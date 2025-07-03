@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import recipesData from '../../recipesData'
 import { useParams } from 'react-router-dom';
 import Back from '../assets/arrow-left-line.svg'
+import FullRecipesShimmer from './FullRecipesShimmer';
 
 
 const FullRecipes = () => {
@@ -40,14 +41,16 @@ const FullRecipes = () => {
         )
     }
 
-    return recipeData === null ? ('loading....'):(
+    return recipeData === null ? (<FullRecipesShimmer/>):(
         <>
-        <p className='w-24 ml-8 mt-8  flex justify-between pr-3 shadow-2xl/40 rounded' draggable onClick={()=> history.back()}>
-            <img className='w-9' src={Back} alt="back" />
+        <p className='w-24 ml-16 mt-8  flex gap-1 pr-3 shadow-2xl/40 rounded' draggable onClick={()=> history.back()}>
+            <img className='w-8' src={Back} alt="back" />
             <span className='text-xl text-center'>Back</span>
         </p>
-        <div className='flex px-7 justify-between m-auto inset-0 py-14' >
-            <img className='w-97' src={recipeData.image} alt="" />
+        <div className='flex px-7 justify-evenly m-auto inset-0 py-14' >
+            <div className='max-w-md'>
+            <img className='w-full' src={recipeData.image} alt="" />
+            </div>
             <div>
                 <h1 className='text-2xl my-2'><b>{recipeData.name}</b></h1>
                 <h2><b>Preperation Time: </b>{recipeData.prepTimeMin}</h2>
