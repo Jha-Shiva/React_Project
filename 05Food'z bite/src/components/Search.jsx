@@ -5,7 +5,7 @@ const Search= ({setQuery})=>{
 
 
     return(
-        <div className="shadow-xl w-2xs flex items-center gap-2 rounded-lg m-8 dark:bg-gray-800 dark:text-white">
+        <div className="shadow-xl w-2xs flex items-center gap-2 rounded-lg m-8 dark:bg-gray-700 dark:text-white">
             <img src={search} alt="Search-icon" className='w-5 ml-2' />
             <input onChange={(e)=>{
                return setQuery(e.target.value.toLowerCase())

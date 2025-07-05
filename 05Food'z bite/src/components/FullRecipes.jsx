@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import recipesData from '../../recipesData'
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useOutletContext, useParams } from 'react-router-dom';
 import Back from '../assets/arrow-left-line.svg'
 import FullRecipesShimmer from './FullRecipesShimmer';
 
@@ -16,6 +16,7 @@ const FullRecipes = () => {
     const [recipeData , setRecipeData] = useState(null)
     const [notFound, setNotFound] = useState(false)
     const {state} = useLocation()
+    const [isDark] = useOutletContext()
 
     function updateRecipeData(data){
         const food = data.recipes?.[0] || data
@@ -60,40 +61,42 @@ const FullRecipes = () => {
 
     return recipeData === null ? (<FullRecipesShimmer/>):(
         <>
-        <p className='w-24 ml-16 mt-8  flex gap-1 pr-3 shadow-2xl/40 rounded' draggable onClick={()=> history.back()}>
-            <img className='w-8' src={Back} alt="back" />
-            <span className='text-xl text-center'>Back</span>
-        </p>
-        <div className='flex px-7 justify-evenly m-auto inset-0 py-14' >
-            <div className='max-w-md rounded-lg'>
-            <img className='w-full rounded-lg' src={recipeData.image} alt="" />
-            </div>
-            <div>
-                <h1 className='text-2xl my-2'><b>{recipeData.name}</b></h1>
-                <h2><b>Preperation Time: </b>{recipeData.prepTimeMin}</h2>
-                <h2><b>Cook Time: </b>{recipeData.cookTimeMin}</h2>
-                <h2 className='mt-2'><b>Ingredients:</b></h2>
-                <ul>
-                    {recipeData.ingredients?.map((ingredient, index)=>{
-                        return (
-                            <li key={index}>{ingredient}</li>
-                        )
-                    })}
-                </ul>
-
-                <h2 className='mt-2'><b>Instruction:</b></h2>
-                <ul>
-                    {
-                        recipeData.instructions?.map((instruction , index)=>{
-                            return(
-                                <li key={index} className='list-item'>{instruction}</li>
+        <main>
+            <p className='w-24 ml-16 mt-8  flex gap-1 pr-3 shadow-2xl/40 rounded' draggable onClick={()=> history.back()}>
+                <img className='w-8' src={Back} alt="back" />
+                <span className='text-xl text-center'>Back</span>
+            </p>
+            <div className='flex px-7 justify-evenly m-auto inset-0 py-14' >
+                <div className='max-w-md rounded-lg'>
+                <img className='w-full rounded-lg' src={recipeData.image} alt="" />
+                </div>
+                <div>
+                    <h1 className='text-2xl my-2'><b>{recipeData.name}</b></h1>
+                    <h2><b>Preperation Time: </b>{recipeData.prepTimeMin}</h2>
+                    <h2><b>Cook Time: </b>{recipeData.cookTimeMin}</h2>
+                    <h2 className='mt-2'><b>Ingredients:</b></h2>
+                    <ul className="list-disc ml-5">
+                        {recipeData.ingredients?.map((ingredient, index)=>{
+                            return (
+                                <li key={index}>{ingredient}</li>
                             )
-                        })
-                    }
-                </ul>
+                        })}
+                    </ul>
+
+                    <h2 className='mt-2'><b>Instruction:</b></h2>
+                    <ul className="list-decimal ml-5 mt-2">
+                        {
+                            recipeData.instructions?.map((instruction , index)=>{
+                                return(
+                                    <li key={index} className='list-item'>{instruction}</li>
+                                )
+                            })
+                        }
+                    </ul>
+                </div>
+                
             </div>
-            
-        </div>
+        </main>
         </>
     )
 }

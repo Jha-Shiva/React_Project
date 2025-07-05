@@ -1,6 +1,6 @@
 const Sort = ()=>{
     return (
-         <select title="Select" className="shadow-xl w-3xs h-11 p-2 m-8 dark:bg-gray-800 dark:text-white">
+         <select title="Select" className="shadow-xl w-3xs h-11 p-2 m-8 dark:bg-gray-700 dark:text-white">
                 <option hidden>Filter by Cuisine</option>
                 <option value="Africa">Italian</option>
                 <option value="America">Asian</option>
