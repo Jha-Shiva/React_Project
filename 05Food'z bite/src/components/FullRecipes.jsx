@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import recipesData from '../../recipesData'
-import { useLocation, useOutletContext, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Back from '../assets/arrow-left-line.svg'
 import FullRecipesShimmer from './FullRecipesShimmer';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 
 const FullRecipes = () => {
@@ -16,7 +17,8 @@ const FullRecipes = () => {
     const [recipeData , setRecipeData] = useState(null)
     const [notFound, setNotFound] = useState(false)
     const {state} = useLocation()
-    const [isDark] = useOutletContext()
+    const [isDark] = useContext(ThemeContext)
+    
 
     function updateRecipeData(data){
         const food = data.recipes?.[0] || data
@@ -62,7 +64,7 @@ const FullRecipes = () => {
     return recipeData === null ? (<FullRecipesShimmer/>):(
         <>
         <main>
-            <p className='w-24 ml-16 mt-8  flex gap-1 pr-3 shadow-2xl/40 rounded' draggable onClick={()=> history.back()}>
+            <p className='w-24 ml-16 mt-8  flex gap-1 pr-3 shadow-2xl/40 rounded dark:bg-gray-700' draggable onClick={()=> history.back()}>
                 <img className='w-8' src={Back} alt="back" />
                 <span className='text-xl text-center'>Back</span>
             </p>

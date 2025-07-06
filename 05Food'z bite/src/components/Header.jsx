@@ -1,11 +1,10 @@
-import Search from "./Search"
-import Dark from "../assets/moon-line.svg"
 import { Link } from "react-router-dom"
-import { useState } from "react"
+import { useContext } from "react"
+import { ThemeContext } from "../../contexts/ThemeContext"
 
 const Header = ({theme})=>{
 
-    const [isDark,setIsDark] = theme
+    const [isDark,setIsDark] = useContext(ThemeContext)
 
     return(
         <div className={`shadow-xl h-16 flex px-8 items-center justify-between sticky top-0 z-10 `}>

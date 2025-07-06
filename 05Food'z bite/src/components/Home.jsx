@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from "react"
 import RecipesList from "./RecipesList"
 import Search from "./Search"
 import Sort from "./Sort"
-import { useOutletContext } from 'react-router-dom'
+import { ThemeContext } from '../../contexts/ThemeContext'
 
 const Home = () => {
     const [query, setQuery] = useState('')
-    const [isDark] = useOutletContext()
+    const [isDark] = useContext(ThemeContext)
   return (
     <>
         <main >
