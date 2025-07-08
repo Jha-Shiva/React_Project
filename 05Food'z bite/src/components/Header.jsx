@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom"
-import { useContext } from "react"
-import { ThemeContext } from "../../contexts/ThemeContext"
+import { useTheme } from "../../hooks/useTheme"
 
 const Header = ({theme})=>{
 
-    const [isDark,setIsDark] = useContext(ThemeContext)
+    const [isDark,setIsDark] = useTheme()
+    
 
     return(
         <div className={`shadow-xl h-16 flex px-8 items-center justify-between sticky top-0 z-10 `}>

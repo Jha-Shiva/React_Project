@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import recipesData from '../../recipesData'
 import { useLocation, useParams } from 'react-router-dom';
 import Back from '../assets/arrow-left-line.svg'
 import FullRecipesShimmer from './FullRecipesShimmer';
-import { ThemeContext } from '../../contexts/ThemeContext';
+import { useTheme } from '../../hooks/useTheme';
 
 
 const FullRecipes = () => {
@@ -17,7 +17,7 @@ const FullRecipes = () => {
     const [recipeData , setRecipeData] = useState(null)
     const [notFound, setNotFound] = useState(false)
     const {state} = useLocation()
-    const [isDark] = useContext(ThemeContext)
+    const [isDark] = useTheme()
     
 
     function updateRecipeData(data){

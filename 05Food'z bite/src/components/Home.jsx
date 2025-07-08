@@ -1,13 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from "react"
 import RecipesList from "./RecipesList"
 import Search from "./Search"
 import Sort from "./Sort"
-import { ThemeContext } from '../../contexts/ThemeContext'
+
+import { useTheme } from '../../hooks/useTheme'
 
 const Home = () => {
     const [query, setQuery] = useState('')
-    const [isDark] = useContext(ThemeContext)
+    const [isDark] = useTheme()
   return (
     <>
         <main >
